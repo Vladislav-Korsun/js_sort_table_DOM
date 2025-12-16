@@ -21,7 +21,7 @@ function sortTableByColumn(columnIndex) {
     const valueB = getCellValue(columnIndex, textB);
 
     if (typeof valueA === 'number' && typeof valueB === 'number') {
-      return valueA - valueB; // ASC
+      return valueA - valueB;
     }
 
     return String(valueA).localeCompare(String(valueB));
