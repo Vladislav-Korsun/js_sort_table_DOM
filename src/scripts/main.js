@@ -17,10 +17,14 @@ function sortTableByColumn(columnIndex) {
     const textA = rowA.children[columnIndex].textContent.trim();
     const textB = rowB.children[columnIndex].textContent.trim();
 
-    const valueA = parseSalary(textA);
-    const valueB = parseSalary(textB);
+    const valueA = getCellValue(columnIndex, textA);
+    const valueB = getCellValue(columnIndex, textB);
 
-    return valueA - valueB;
+    if (typeof valueA === 'number' && typeof valueB === 'number') {
+      return valueA - valueB; // ASC
+    }
+
+    return String(valueA).localeCompare(String(valueB));
   });
 
   rows.forEach((row) => {
@@ -28,6 +32,14 @@ function sortTableByColumn(columnIndex) {
   });
 }
 
-function parseSalary(value) {
-  return Number(value.replace(/[^0-9]/g, ''));
+function getCellValue(columnIndex, text) {
+  if (columnIndex === 2) {
+    return Number(text);
+  }
+
+  if (columnIndex === 3) {
+    return Number(text.replace(/[^0-9]/g, ''));
+  }
+
+  return text;
 }
